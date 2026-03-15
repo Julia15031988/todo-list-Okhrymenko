@@ -35,11 +35,12 @@ class TaskDeleteView(LoginRequiredMixin, generic.DeleteView):
     success_url = reverse_lazy("todo_:todo-list")
 
 
-def switch_done_or_not_done(request, pk):
-    task = Task.objects.get(pk=pk)
-    task.is_done = not task.is_done
-    task.save()
-    return HttpResponseRedirect(reverse_lazy("todo:todo-list"))
+class TaskStatusUpdateView(LoginRequiredMixin, generic.View):
+    def post(self, request, pk):
+        task = Task.objects.get(pk=pk)
+        task.is_done = not task.is_done
+        task.save()
+        return HttpResponseRedirect(reverse_lazy("todo:todo-list"))
 
 
 class TagListView(LoginRequiredMixin, generic.ListView):
