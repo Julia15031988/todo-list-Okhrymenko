@@ -5,6 +5,7 @@
 <h2>{% if form.instance.pk %} EDIT {% else %} CREATE {% endif %}</h2>
 <form method="post">
     {% csrf_token %}
+    {{ form.non_field_errors }}
     {{ form.as_p }}
     <button type="submit">💾 SAVE</button>
 </form>
